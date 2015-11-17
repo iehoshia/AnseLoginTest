@@ -27,6 +27,7 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.login.widget.ProfilePictureView;
 
 
 /**
@@ -39,6 +40,8 @@ public class MainActivityFragment extends Fragment {
 
     private AccessTokenTracker accessTokenTracker;
     private ProfileTracker profileTracker;
+    ProfilePictureView profilePictureView;
+
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
@@ -100,6 +103,8 @@ public class MainActivityFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
         textView = (TextView) view.findViewById(R.id.textView);
+        profilePictureView = (ProfilePictureView) view.findViewById(R.id.friendProfilePicture);
+
 
         loginButton.setReadPermissions("user_friends");
         loginButton.setFragment(this);
@@ -117,6 +122,8 @@ public class MainActivityFragment extends Fragment {
     private void displayMessage(Profile profile){
         if(profile != null){
             textView.setText(profile.getName());
+            profilePictureView.setProfileId(profile.getId());
+
         }
     }
 
